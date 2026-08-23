@@ -10,9 +10,13 @@ export type Restaurant = {
   reviewCount: number;
   distanceMiles: number;
   isOpenNow: boolean;
+  latitude: number;
+  longitude: number;
   image?: ImageSourcePropType;
 };
 
+// Real Cincinnati, OH coordinates (matches the default location in
+// FindRestaurantsScreen) so the map has something real to center and pin.
 export const restaurants: Restaurant[] = [
   {
     id: 'green-acres',
@@ -22,6 +26,8 @@ export const restaurants: Restaurant[] = [
     reviewCount: 320,
     distanceMiles: 0.8,
     isOpenNow: true,
+    latitude: 39.1031,
+    longitude: -84.512,
   },
   {
     id: 'the-kind-bowl',
@@ -31,6 +37,8 @@ export const restaurants: Restaurant[] = [
     reviewCount: 198,
     distanceMiles: 1.2,
     isOpenNow: true,
+    latitude: 39.1121,
+    longitude: -84.5064,
   },
   {
     id: 'plantitude',
@@ -40,6 +48,8 @@ export const restaurants: Restaurant[] = [
     reviewCount: 256,
     distanceMiles: 1.5,
     isOpenNow: false,
+    latitude: 39.0997,
+    longitude: -84.4977,
   },
   {
     id: 'sprout-cafe',
@@ -49,6 +59,8 @@ export const restaurants: Restaurant[] = [
     reviewCount: 142,
     distanceMiles: 1.9,
     isOpenNow: true,
+    latitude: 39.1225,
+    longitude: -84.5171,
   },
   {
     id: 'harvest-table',
@@ -58,6 +70,8 @@ export const restaurants: Restaurant[] = [
     reviewCount: 301,
     distanceMiles: 2.3,
     isOpenNow: false,
+    latitude: 39.0896,
+    longitude: -84.5194,
   },
   {
     id: 'rooted-kitchen',
@@ -67,5 +81,7 @@ export const restaurants: Restaurant[] = [
     reviewCount: 410,
     distanceMiles: 2.6,
     isOpenNow: true,
+    latitude: 39.1355,
+    longitude: -84.504,
   },
 ];

@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { restaurants, RestaurantTag } from '../data/restaurants';
 import { darkTheme, fontFamily, radius, spacing } from '../theme';
 import { RestaurantCard } from '../components/RestaurantCard';
-import { MapPlaceholder } from '../components/MapPlaceholder';
+import { RestaurantMap } from '../components/RestaurantMap';
 import { Chip } from '../components/Chip';
 
 const filterOptions: ('All' | RestaurantTag | 'Open Now')[] = [
@@ -68,7 +68,7 @@ export function FindRestaurantsScreen() {
           ))}
         </View>
 
-        <MapPlaceholder theme={darkTheme} />
+        <RestaurantMap restaurants={filteredRestaurants} theme={darkTheme} />
 
         {filteredRestaurants.length === 0 ? (
           <View style={styles.emptyState}>
