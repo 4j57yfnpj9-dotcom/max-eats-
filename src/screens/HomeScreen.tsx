@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { darkTheme, fontFamily, radius, spacing } from '../theme';
 import { getGreeting } from '../utils/getGreeting';
 import { todaysRecommendation, quickPickTags, Tag } from '../data/recipes';
@@ -11,9 +12,24 @@ import { exploreCategories } from '../data/categories';
 import { RecipeCard } from '../components/RecipeCard';
 import { QuickPickTile } from '../components/QuickPickTile';
 import { CategoryCard } from '../components/CategoryCard';
+import { Chip } from '../components/Chip';
 import { HomeStackParamList } from '../navigation/HomeStackNavigator';
+import { RootTabParamList } from '../navigation/TabNavigator';
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParamList, 'HomeMain'>;
+// Composite because this screen needs to navigate both within its own Home
+// stack (RecipeDetail, RecipeList, Notifications) and out to sibling tabs
+// (Profile, Saved) for the hamburger menu — same pattern as AddMealScreen's
+// handleViewFullRecipe, just the reverse direction.
+type HomeScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<HomeStackParamList, 'HomeMain'>,
+  BottomTabNavigationProp<RootTabParamList>
+>;
+
+type MenuItem = {
+  label: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  onPress: () => void;
+};
 
 // Maps each Quick Pick tag to the icon shown on its tile. Kept next to the
 // screen that uses it, since icon choice is a presentation detail, not data.
@@ -34,6 +50,8 @@ export function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [filtersVisible, setFiltersVisible] = useState(false);
 
   function toggleTag(tag: Tag) {
     setSelectedTags((prev) =>
@@ -43,20 +61,57 @@ export function HomeScreen() {
 
   function submitSearch() {
     if (!searchQuery.trim()) return;
-    navigation.navigate('RecipeList', { title: `"${searchQuery.trim()}"`, query: searchQuery.trim() });
+    navigation.navigate('RecipeList', {
+      title: `"${searchQuery.trim()}"`,
+      query: searchQuery.trim(),
+      tags: selectedTags.length > 0 ? selectedTags : undefined,
+    });
+  }
+
+  const menuItems: MenuItem[] = [
+    { label: 'Profile', icon: 'person-outline', onPress: () => navigation.navigate('Profile') },
+    { label: 'Saved', icon: 'bookmark-outline', onPress: () => navigation.navigate('Saved') },
+    { label: 'Notifications', icon: 'notifications-outline', onPress: () => navigation.navigate('Notifications') },
+  ];
+
+  function handleMenuItemPress(item: MenuItem) {
+    setMenuVisible(false);
+    item.onPress();
   }
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.topBar}>
-          <Pressable hitSlop={8} onPress={() => {}}>
+          <Pressable hitSlop={8} onPress={() => setMenuVisible(true)}>
             <Ionicons name="menu-outline" size={26} color={darkTheme.text} />
           </Pressable>
           <Pressable hitSlop={8} onPress={() => navigation.navigate('Notifications')}>
             <Ionicons name="notifications-outline" size={24} color={darkTheme.text} />
           </Pressable>
         </View>
+
+        <Modal
+          visible={menuVisible}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setMenuVisible(false)}
+        >
+          <Pressable style={styles.menuBackdrop} onPress={() => setMenuVisible(false)}>
+            <Pressable style={styles.menuCard} onPress={() => {}}>
+              {menuItems.map((item) => (
+                <Pressable
+                  key={item.label}
+                  style={styles.menuRow}
+                  onPress={() => handleMenuItemPress(item)}
+                >
+                  <Ionicons name={item.icon} size={18} color={darkTheme.text} />
+                  <Text style={styles.menuLabel}>{item.label}</Text>
+                </Pressable>
+              ))}
+            </Pressable>
+          </Pressable>
+        </Modal>
 
         <Text style={styles.greeting}>{getGreeting()}</Text>
         <Text style={styles.welcome}>welcome back 🌿</Text>
@@ -74,10 +129,28 @@ export function HomeScreen() {
             placeholderTextColor={darkTheme.textMuted}
             style={styles.searchInput}
           />
-          <Pressable hitSlop={8} onPress={() => {}}>
-            <Ionicons name="options-outline" size={18} color={darkTheme.textMuted} />
+          <Pressable hitSlop={8} onPress={() => setFiltersVisible((prev) => !prev)}>
+            <Ionicons
+              name="options-outline"
+              size={18}
+              color={selectedTags.length > 0 ? darkTheme.accent : darkTheme.textMuted}
+            />
           </Pressable>
         </View>
+
+        {filtersVisible && (
+          <View style={styles.inlineFilterRow}>
+            {quickPickTags.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag}
+                theme={darkTheme}
+                selected={selectedTags.includes(tag)}
+                onPress={() => toggleTag(tag)}
+              />
+            ))}
+          </View>
+        )}
 
         <Text style={styles.sectionTitle}>Today's Recommendation</Text>
         <RecipeCard
@@ -154,6 +227,37 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing.lg,
+  },
+  menuBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  menuCard: {
+    position: 'absolute',
+    top: 56,
+    left: spacing.lg,
+    minWidth: 200,
+    backgroundColor: darkTheme.card,
+    borderRadius: radius.button,
+    paddingVertical: spacing.xs,
+  },
+  menuRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  menuLabel: {
+    fontFamily: fontFamily.body,
+    fontSize: 14,
+    color: darkTheme.text,
+  },
+  inlineFilterRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
   },
   greeting: {
     fontFamily: fontFamily.headingBold,
