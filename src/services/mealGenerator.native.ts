@@ -1,0 +1,79 @@
+import Anthropic from '@anthropic-ai/sdk';
+import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
+import { z } from 'zod';
+import { Recipe, Tag } from '../data/recipes';
+
+const GeneratedRecipeSchema = z.object({
+  title: z.string(),
+  category: z.enum(['breakfast', 'lunch', 'dinner', 'snack', 'dessert']),
+  minutes: z.number().int().positive(),
+  tags: z.array(z.enum(['High Protein', 'Under 30 Min', 'Gluten Free', 'Meal Prep'])),
+  description: z.string(),
+  servings: z.number().int().positive(),
+  ingredients: z.array(z.object({ name: z.string(), quantity: z.string() })).min(1),
+  steps: z.array(z.string()).min(1),
+});
+
+function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+// Native only — the API key lives in EXPO_PUBLIC_MAX_POWER_KEY (from a
+// gitignored .env.local, never committed) and this file is never bundled
+// into the public web build (see mealGenerator.web.ts), so the key never
+// ships to a page anyone can inspect.
+export async function generateMeal(
+  promptText: string,
+  tags: Tag[],
+  _previousId?: string
+): Promise<Recipe> {
+  const apiKey = process.env.EXPO_PUBLIC_MAX_POWER_KEY;
+  if (!apiKey) {
+    throw new Error(
+      'No Anthropic API key found. Add EXPO_PUBLIC_MAX_POWER_KEY to .env.local and restart the app.'
+    );
+  }
+
+  const client = new Anthropic({ apiKey });
+
+  const requestParts: string[] = [];
+  if (promptText.trim()) {
+    requestParts.push(`Craving: ${promptText.trim()}`);
+  }
+  if (tags.length > 0) {
+    requestParts.push(`Required tags (include all of these in the tags field): ${tags.join(', ')}`);
+  }
+  if (requestParts.length === 0) {
+    requestParts.push('Surprise me with a healthy recipe idea.');
+  }
+
+  const response = await client.messages.parse({
+    model: 'claude-opus-5',
+    max_tokens: 2048,
+    system:
+      'You are the recipe generation engine behind Verdant, a healthy-eating app. Create one original, appealing, realistically cookable recipe that fits the request. Keep ingredients and steps concise and home-cook friendly.',
+    messages: [{ role: 'user', content: requestParts.join('\n') }],
+    output_config: { format: zodOutputFormat(GeneratedRecipeSchema) },
+  });
+
+  const parsed = response.parsed_output;
+  if (!parsed) {
+    throw new Error('The AI response could not be parsed. Try again.');
+  }
+
+  return {
+    id: `${slugify(parsed.title)}-${Date.now()}`,
+    title: parsed.title,
+    category: parsed.category,
+    minutes: parsed.minutes,
+    tags: parsed.tags,
+    isNew: true,
+    description: parsed.description,
+    servings: parsed.servings,
+    ingredients: parsed.ingredients,
+    steps: parsed.steps,
+  };
+}

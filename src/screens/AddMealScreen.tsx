@@ -15,25 +15,13 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { RootTabParamList } from '../navigation/TabNavigator';
 import { lightTheme, fontFamily, radius, spacing } from '../theme';
 import { Recipe, Tag, quickPickTags } from '../data/recipes';
-import { recipeSuggestions } from '../data/recipeSuggestions';
 import { useFavorites } from '../context/FavoritesContext';
 import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
+import { generateMeal } from '../services/mealGenerator';
 import { Chip } from '../components/Chip';
 import { RecipeCard } from '../components/RecipeCard';
 
 type AddMealScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Add'>;
-
-// Picks a recipe from the suggestion pool that matches every selected tag,
-// falling back to the full pool when nothing matches (or none are selected).
-// Stands in for a real generation call — same seam as the rest of the app's
-// mock data, just swapped for an API request later.
-function pickSuggestion(selectedTags: Tag[], excludeId?: string): Recipe {
-  const matchesTags = (recipe: Recipe) => selectedTags.every((tag) => recipe.tags.includes(tag));
-  const pool = recipeSuggestions.filter((recipe) => recipe.id !== excludeId);
-  const tagged = selectedTags.length > 0 ? pool.filter(matchesTags) : pool;
-  const candidates = tagged.length > 0 ? tagged : pool.length > 0 ? pool : recipeSuggestions;
-  return candidates[Math.floor(Math.random() * candidates.length)];
-}
 
 export function AddMealScreen() {
   const navigation = useNavigation<AddMealScreenNavigationProp>();
@@ -44,17 +32,23 @@ export function AddMealScreen() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedRecipe, setGeneratedRecipe] = useState<Recipe | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   function toggleTag(tag: Tag) {
     setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   }
 
-  function handleGenerate() {
+  async function handleGenerate() {
     setIsGenerating(true);
-    setTimeout(() => {
-      setGeneratedRecipe(pickSuggestion(selectedTags, generatedRecipe?.id));
+    setErrorMessage(null);
+    try {
+      const recipe = await generateMeal(promptText, selectedTags, generatedRecipe?.id);
+      setGeneratedRecipe(recipe);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Try again.');
+    } finally {
       setIsGenerating(false);
-    }, 900);
+    }
   }
 
   function handleSave() {
@@ -119,6 +113,8 @@ export function AddMealScreen() {
           )}
         </Pressable>
 
+        {errorMessage && !isGenerating && <Text style={styles.errorText}>{errorMessage}</Text>}
+
         {generatedRecipe && !isGenerating && (
           <View style={styles.result}>
             <Text style={styles.sectionTitle}>Here's an idea</Text>
@@ -148,7 +144,7 @@ export function AddMealScreen() {
           </View>
         )}
 
-        {!generatedRecipe && !isGenerating && (
+        {!generatedRecipe && !errorMessage && !isGenerating && (
           <View style={styles.emptyState}>
             <Ionicons name="restaurant-outline" size={40} color={lightTheme.textMuted} />
             <Text style={styles.emptySubtitle}>
@@ -220,6 +216,13 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.bodySemiBold,
     fontSize: 16,
     color: lightTheme.card,
+  },
+  errorText: {
+    fontFamily: fontFamily.body,
+    fontSize: 14,
+    color: '#C0524A',
+    textAlign: 'center',
+    marginTop: spacing.md,
   },
   result: {
     marginTop: spacing.md,
