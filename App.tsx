@@ -15,6 +15,7 @@ import { FavoritesProvider } from './src/context/FavoritesContext';
 import { GeneratedRecipesProvider } from './src/context/GeneratedRecipesContext';
 import { NotificationsProvider } from './src/context/NotificationsContext';
 import { UserProfileProvider } from './src/context/UserProfileContext';
+import { GroceryListProvider } from './src/context/GroceryListContext';
 
 // Keep the native splash screen visible while fonts are still downloading.
 SplashScreen.preventAutoHideAsync();
@@ -49,10 +50,12 @@ export default function App() {
         <GeneratedRecipesProvider>
           <NotificationsProvider>
             <UserProfileProvider>
-              <NavigationContainer>
-                <TabNavigator />
-              </NavigationContainer>
-              <StatusBar style="dark" />
+              <GroceryListProvider>
+                <NavigationContainer>
+                  <TabNavigator />
+                </NavigationContainer>
+                <StatusBar style="dark" />
+              </GroceryListProvider>
             </UserProfileProvider>
           </NotificationsProvider>
         </GeneratedRecipesProvider>

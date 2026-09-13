@@ -10,7 +10,9 @@ const GeneratedRecipeSchema = z.object({
   tags: z.array(z.enum(['High Protein', 'Under 30 Min', 'Gluten Free', 'Meal Prep'])),
   description: z.string(),
   servings: z.number().int().positive(),
-  ingredients: z.array(z.object({ name: z.string(), quantity: z.string() })).min(1),
+  ingredients: z
+    .array(z.object({ name: z.string(), quantity: z.string(), haveAtHome: z.boolean().optional() }))
+    .min(1),
   steps: z.array(z.string()).min(1),
 });
 
@@ -97,6 +99,7 @@ export async function generateMealFromPhoto(base64Image: string, tags: Tag[]): P
 
   const requestParts: string[] = [
     'Identify the food ingredients visible in this photo of a fridge or pantry, then create one recipe that primarily uses them. Assume common staples like oil, salt, pepper, and basic spices are on hand even if not visible.',
+    "For every ingredient in the recipe, set haveAtHome to true only if you actually saw it in the photo (including assumed pantry staples) — set it to false for anything the user would need to buy.",
   ];
   if (tags.length > 0) {
     requestParts.push(`Required tags (include all of these in the tags field): ${tags.join(', ')}`);

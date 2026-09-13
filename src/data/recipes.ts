@@ -14,6 +14,11 @@ export const quickPickTags: Tag[] = ['High Protein', 'Under 30 Min', 'Gluten Fre
 export type Ingredient = {
   name: string;
   quantity: string;
+  // Only set for recipes generated from a fridge/pantry photo (see
+  // mealGenerator.native.ts) — true when the AI actually spotted this
+  // ingredient in the picture, false/undefined otherwise. Powers the
+  // "add missing ingredients" grocery list action on Recipe Detail.
+  haveAtHome?: boolean;
 };
 
 export type Recipe = {

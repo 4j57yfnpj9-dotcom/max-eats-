@@ -3,6 +3,7 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { RecipeDetailScreen } from '../screens/RecipeDetailScreen';
 import { RecipeListScreen } from '../screens/RecipeListScreen';
 import { NotificationsScreen } from '../screens/NotificationsScreen';
+import { GroceryListScreen } from '../screens/GroceryListScreen';
 import { MealCategory, Tag } from '../data/recipes';
 
 // The Home tab's own navigation history — separate from the Tab Navigator.
@@ -13,6 +14,7 @@ export type HomeStackParamList = {
   RecipeDetail: { recipeId: string };
   RecipeList: { title: string; category?: MealCategory; tags?: Tag[]; query?: string };
   Notifications: undefined;
+  GroceryList: undefined;
 };
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
@@ -24,6 +26,7 @@ export function HomeStackNavigator() {
       <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
       <Stack.Screen name="RecipeList" component={RecipeListScreen} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} />
+      <Stack.Screen name="GroceryList" component={GroceryListScreen} />
     </Stack.Navigator>
   );
 }

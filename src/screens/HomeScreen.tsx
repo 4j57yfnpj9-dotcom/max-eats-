@@ -78,6 +78,7 @@ export function HomeScreen() {
     },
     { label: 'Saved', icon: 'bookmark-outline', onPress: () => navigation.navigate('Saved') },
     { label: 'Notifications', icon: 'notifications-outline', onPress: () => navigation.navigate('Notifications') },
+    { label: 'Grocery List', icon: 'cart-outline', onPress: () => navigation.navigate('GroceryList') },
   ];
 
   function handleMenuItemPress(item: MenuItem) {

@@ -10,6 +10,7 @@ import { ImagePlaceholder } from '../components/ImagePlaceholder';
 import { InfoPill } from '../components/InfoPill';
 import { useFavorites } from '../context/FavoritesContext';
 import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
+import { useGroceryList } from '../context/GroceryListContext';
 
 type RecipeDetailRouteProp = RouteProp<HomeStackParamList, 'RecipeDetail'>;
 
@@ -18,9 +19,11 @@ export function RecipeDetailScreen() {
   const navigation = useNavigation();
   const { isRecipeFavorite, toggleRecipeFavorite } = useFavorites();
   const { generatedRecipes } = useGeneratedRecipes();
+  const { addIngredients } = useGroceryList();
   const recipe = [...recipes, ...generatedRecipes].find((r) => r.id === params.recipeId);
   const isFavorite = recipe ? isRecipeFavorite(recipe.id) : false;
   const [showInstructions, setShowInstructions] = useState(false);
+  const [groceryNote, setGroceryNote] = useState<string | null>(null);
 
   // Only reachable via navigation.navigate with a real recipe id from our
   // own data, so this should never actually render — it's a type-safety
@@ -40,6 +43,23 @@ export function RecipeDetailScreen() {
     }
   };
 
+  const handleAddToGroceryList = () => {
+    if (!recipe.ingredients) return;
+    const { added, skippedHaveAtHome } = addIngredients(recipe.ingredients);
+    if (added === 0) {
+      setGroceryNote(
+        skippedHaveAtHome > 0 ? "You've already got everything for this one." : 'Already on your list.'
+      );
+    } else {
+      setGroceryNote(
+        skippedHaveAtHome > 0
+          ? `Added ${added} missing ingredient${added === 1 ? '' : 's'} to your list.`
+          : `Added ${added} ingredient${added === 1 ? '' : 's'} to your list.`
+      );
+    }
+    setTimeout(() => setGroceryNote(null), 3000);
+  };
+
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
       <View style={styles.header}>
@@ -57,8 +77,15 @@ export function RecipeDetailScreen() {
           <Pressable onPress={handleShare} hitSlop={8}>
             <Ionicons name="share-outline" size={22} color={darkTheme.text} />
           </Pressable>
+          {recipe.ingredients && (
+            <Pressable onPress={handleAddToGroceryList} hitSlop={8}>
+              <Ionicons name="cart-outline" size={22} color={darkTheme.text} />
+            </Pressable>
+          )}
         </View>
       </View>
+
+      {groceryNote && <Text style={styles.groceryNote}>{groceryNote}</Text>}
 
       <ScrollView contentContainerStyle={styles.content}>
         {recipe.image ? (
@@ -104,6 +131,12 @@ export function RecipeDetailScreen() {
                 <View style={styles.ingredientLeft}>
                   <View style={styles.ingredientDot} />
                   <Text style={styles.ingredientName}>{ingredient.name}</Text>
+                  {ingredient.haveAtHome && (
+                    <View style={styles.haveAtHomeTag}>
+                      <Ionicons name="checkmark" size={11} color={darkTheme.accent} />
+                      <Text style={styles.haveAtHomeLabel}>Have it</Text>
+                    </View>
+                  )}
                 </View>
                 <Text style={styles.ingredientQuantity}>{ingredient.quantity}</Text>
               </View>
@@ -155,6 +188,14 @@ const styles = StyleSheet.create({
   headerActions: {
     flexDirection: 'row',
     gap: spacing.md,
+  },
+  groceryNote: {
+    fontFamily: fontFamily.body,
+    fontSize: 13,
+    color: darkTheme.accent,
+    textAlign: 'center',
+    marginTop: spacing.sm,
+    paddingHorizontal: spacing.lg,
   },
   content: {
     padding: spacing.lg,
@@ -218,6 +259,20 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
     backgroundColor: darkTheme.accent,
+  },
+  haveAtHomeTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: darkTheme.imagePlaceholder,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.xs,
+    paddingVertical: 2,
+  },
+  haveAtHomeLabel: {
+    fontFamily: fontFamily.bodyMedium,
+    fontSize: 11,
+    color: darkTheme.accent,
   },
   ingredientName: {
     fontFamily: fontFamily.body,

@@ -8,6 +8,7 @@ import { lightTheme, fontFamily, spacing } from '../theme';
 import { useFavorites } from '../context/FavoritesContext';
 import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
 import { useUserProfile } from '../context/UserProfileContext';
+import { useGroceryList } from '../context/GroceryListContext';
 import { Card } from '../components/Card';
 
 type ProfileScreenNavigationProp = NativeStackNavigationProp<ProfileStackParamList, 'ProfileMain'>;
@@ -16,13 +17,14 @@ export function ProfileScreen() {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   const { favoriteRecipeIds, favoriteRestaurantIds, clearFavorites } = useFavorites();
   const { clearGeneratedRecipes } = useGeneratedRecipes();
+  const { clearAll: clearGroceryList } = useGroceryList();
   const { name, email, dietaryPreferences, notificationsEnabled, setNotificationsEnabled, resetProfile } =
     useUserProfile();
 
   function handleReset() {
     Alert.alert(
       'Reset App Data',
-      'This clears your saved recipes, saved restaurants, and profile settings on this device. This can\'t be undone.',
+      'This clears your saved recipes, saved restaurants, grocery list, and profile settings on this device. This can\'t be undone.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -31,6 +33,7 @@ export function ProfileScreen() {
           onPress: () => {
             clearFavorites();
             clearGeneratedRecipes();
+            clearGroceryList();
             resetProfile();
           },
         },
