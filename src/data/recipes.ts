@@ -75,6 +75,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/7111398/pexels-photo-7111398.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Creamy steel-cut oats simmered with turmeric, cinnamon, and coconut milk, finished with toasted almonds.',
     rating: 4.5,
@@ -101,6 +102,7 @@ export const recipes: Recipe[] = [
     tags: ['Under 30 Min'],
     isNew: true,
     subtitle: 'Under 30 Min • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/3957527/pexels-photo-3957527.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Sourdough toast piled high with smashed avocado, chili flakes, pickled radish, and a squeeze of lime.',
     rating: 4.6,
@@ -126,6 +128,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/21531720/pexels-photo-21531720.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fluffy couscous tossed with cucumber, cherry tomatoes, olives, and feta in a bright lemon-oregano dressing.',
     rating: 4.4,
@@ -151,6 +154,7 @@ export const recipes: Recipe[] = [
     minutes: 45,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 45 min',
+    image: { uri: 'https://images.pexels.com/photos/39206896/pexels-photo-39206896.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Bell peppers stuffed with a savory mix of rice, black beans, corn, and spices, baked until tender.',
     rating: 4.7,
@@ -176,6 +180,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: [],
     subtitle: 'Creamy & Rich • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/8864543/pexels-photo-8864543.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Slow-stirred arborio rice with wild mushrooms, white wine, and parmesan for a comforting, restaurant-style dinner.',
     rating: 4.8,
@@ -202,6 +207,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Gluten Free • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/28286195/pexels-photo-28286195.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'No-bake oat and date bites rolled with peanut butter, chia seeds, and dark chocolate chips.',
     rating: 4.5,
@@ -227,6 +233,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: [],
     subtitle: 'Warm & Cozy • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/34618726/pexels-photo-34618726.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Cinnamon-spiced baked apples under a golden oat crumble topping, best served warm with a scoop of ice cream.',
     rating: 4.6,
@@ -253,6 +260,7 @@ export const recipes: Recipe[] = [
     tags: ['High Protein', 'Meal Prep'],
     isNew: true,
     subtitle: 'High in Protein • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/32655065/pexels-photo-32655065.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fluffy baked egg muffins loaded with bell pepper, spinach, and cheddar — a grab-and-go breakfast for the week.',
     rating: 4.6,
@@ -279,6 +287,7 @@ export const recipes: Recipe[] = [
     minutes: 8,
     tags: ['High Protein', 'Under 30 Min'],
     subtitle: 'Under 30 Min • 8 min',
+    image: { uri: 'https://images.pexels.com/photos/4006347/pexels-photo-4006347.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Layers of thick Greek yogurt, mixed berries, and honeyed granola for a fast, protein-packed morning.',
     rating: 4.5,
@@ -303,6 +312,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Gluten Free', 'Under 30 Min'],
     subtitle: 'Gluten Free • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/30882594/pexels-photo-30882594.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Blender pancakes made from ripe banana and rolled oats, naturally sweet and gluten free.',
     rating: 4.4,
@@ -329,6 +339,7 @@ export const recipes: Recipe[] = [
     tags: ['High Protein', 'Gluten Free'],
     isNew: true,
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/6271868/pexels-photo-6271868.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Pan-crisped tofu over brown rice with shredded carrot, edamame, and a creamy peanut-lime dressing.',
     rating: 4.7,
@@ -356,6 +367,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/30635687/pexels-photo-30635687.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A hearty vegetable soup with white beans, kale, and rosemary that tastes even better the next day.',
     rating: 4.6,
@@ -383,6 +395,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/5639959/pexels-photo-5639959.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fluffy quinoa tossed with cherry tomatoes, fresh mozzarella, basil, and a balsamic drizzle.',
     rating: 4.5,
@@ -408,6 +421,7 @@ export const recipes: Recipe[] = [
     minutes: 50,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 50 min',
+    image: { uri: 'https://images.pexels.com/photos/9213929/pexels-photo-9213929.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Corn tortillas rolled with black beans, roasted sweet potato, and cheese, baked under red enchilada sauce.',
     rating: 4.7,
@@ -434,6 +448,7 @@ export const recipes: Recipe[] = [
     minutes: 55,
     tags: ['High Protein', 'Meal Prep'],
     subtitle: 'High in Protein • 55 min',
+    image: { uri: 'https://images.pexels.com/photos/15655219/pexels-photo-15655219.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A comforting bake of savory lentils and vegetables under a layer of creamy mashed potatoes.',
     rating: 4.6,
@@ -461,6 +476,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/5848508/pexels-photo-5848508.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A fast weeknight stir-fry of broccoli, snap peas, and mushrooms in a glossy sesame-ginger sauce.',
     rating: 4.5,
@@ -488,6 +504,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['High Protein', 'Gluten Free'],
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/10111952/pexels-photo-10111952.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Oven-roasted chickpeas tossed in smoked paprika and garlic powder until golden and crunchy.',
     rating: 4.4,
@@ -512,6 +529,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/221057/pexels-photo-221057.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Cool cucumber rounds topped with hummus, cherry tomato, and a sprinkle of za\'atar.',
     rating: 4.3,
@@ -536,6 +554,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/264765/pexels-photo-264765.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Raw almonds roasted with cinnamon, cayenne, and a touch of maple syrup for a sweet-and-spicy snack.',
     rating: 4.5,
@@ -562,6 +581,7 @@ export const recipes: Recipe[] = [
     tags: ['Gluten Free', 'Under 30 Min'],
     isNew: true,
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/4940755/pexels-photo-4940755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A silky, rich chocolate mousse made from ripe avocado and cocoa — no one will guess what\'s in it.',
     rating: 4.5,
@@ -587,6 +607,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['High Protein', 'Meal Prep'],
     subtitle: 'High in Protein • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/13111782/pexels-photo-13111782.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'No-bake oat bars swirled with peanut butter and a dark chocolate drizzle, perfect for the week ahead.',
     rating: 4.6,
@@ -612,6 +633,7 @@ export const recipes: Recipe[] = [
     minutes: 60,
     tags: [],
     subtitle: 'Bright & Zesty • 60 min',
+    image: { uri: 'https://images.pexels.com/photos/36865493/pexels-photo-36865493.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A tender, moist cake made with ricotta cheese and fresh lemon zest, finished with a light glaze.',
     rating: 4.7,
@@ -639,6 +661,7 @@ export const recipes: Recipe[] = [
     tags: ['High Protein', 'Under 30 Min'],
     isNew: true,
     subtitle: 'High in Protein • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/5840304/pexels-photo-5840304.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Scrambled eggs folded with wilted spinach and crumbled feta, wrapped in a warm tortilla for breakfast on the move.',
     rating: 4.5,
@@ -664,6 +687,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/5150202/pexels-photo-5150202.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Chia seeds soaked overnight in vanilla almond milk until thick and pudding-like, topped with fresh fruit.',
     rating: 4.4,
@@ -689,6 +713,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Meal Prep'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/5848042/pexels-photo-5848042.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Scrambled eggs, black beans, and roasted potatoes rolled up with salsa and cheese for a hearty make-ahead breakfast.',
     rating: 4.6,
@@ -716,6 +741,7 @@ export const recipes: Recipe[] = [
     tags: ['Under 30 Min'],
     isNew: true,
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/5021719/pexels-photo-5021719.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Chilled rice noodles tossed with crunchy vegetables and a bold peanut-lime sauce.',
     rating: 4.6,
@@ -742,6 +768,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/6631967/pexels-photo-6631967.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Farro topped with roasted seasonal vegetables, chickpeas, and a garlicky tahini drizzle — great for prepping ahead.',
     rating: 4.5,
@@ -768,6 +795,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/9928198/pexels-photo-9928198.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Smashed chickpeas mixed with celery, red onion, and a creamy dressing for a quick, no-cook sandwich filling.',
     rating: 4.3,
@@ -794,6 +822,7 @@ export const recipes: Recipe[] = [
     tags: ['High Protein', 'Gluten Free', 'Meal Prep'],
     isNew: true,
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/35041670/pexels-photo-35041670.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Red lentils simmered in coconut milk with curry spices, tomato, and spinach — a fast, one-pot weeknight dinner.',
     rating: 4.8,
@@ -820,6 +849,7 @@ export const recipes: Recipe[] = [
     minutes: 45,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 45 min',
+    image: { uri: 'https://images.pexels.com/photos/27940895/pexels-photo-27940895.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Ziti baked with marinara, ricotta, and spinach under a bubbling layer of mozzarella.',
     rating: 4.6,
@@ -845,6 +875,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/32371267/pexels-photo-32371267.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Bell peppers and onions roasted with smoky fajita spices, served with warm tortillas and lime.',
     rating: 4.5,
@@ -871,6 +902,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Gluten Free', 'Under 30 Min'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/19252762/pexels-photo-19252762.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Shelled edamame roasted until lightly crisp with sea salt and garlic powder — a simple, protein-rich snack.',
     rating: 4.4,
@@ -895,6 +927,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/10003794/pexels-photo-10003794.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crisp apple rounds topped with peanut butter, granola, and a drizzle of honey.',
     rating: 4.3,
@@ -919,6 +952,7 @@ export const recipes: Recipe[] = [
     tags: ['Gluten Free'],
     isNew: true,
     subtitle: 'Gluten Free • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/5846193/pexels-photo-5846193.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Layers of melted dark chocolate and a sweet peanut butter filling, set in muffin liners until firm.',
     rating: 4.7,
@@ -943,6 +977,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: [],
     subtitle: 'Warm & Fruity • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/6978242/pexels-photo-6978242.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Juicy mixed berries baked under a buttery oat crumble, best served warm with a scoop of vanilla ice cream.',
     rating: 4.6,
@@ -969,6 +1004,7 @@ export const recipes: Recipe[] = [
     tags: ['High Protein', 'Gluten Free'],
     isNew: true,
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/35672957/pexels-photo-35672957.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Eggs poached in a spiced tomato and bell pepper sauce, finished with fresh parsley and crumbled feta.',
     rating: 4.7,
@@ -994,6 +1030,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/30495383/pexels-photo-30495383.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Thick brioche slices soaked in a vanilla-egg batter and pan-fried golden, topped with warm mixed berries.',
     rating: 4.6,
@@ -1019,6 +1056,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Gluten Free'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/6823322/pexels-photo-6823322.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Warm quinoa simmered in almond milk with cinnamon, topped with banana and toasted walnuts.',
     rating: 4.5,
@@ -1043,6 +1081,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/9840182/pexels-photo-9840182.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy diced sweet potato and peppers pan-fried with onion, topped with a fried egg.',
     rating: 4.6,
@@ -1068,6 +1107,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/90607/pexels-photo-90607.png?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fluffy whole-grain muffins studded with blueberries and topped with sliced almonds.',
     rating: 4.5,
@@ -1093,6 +1133,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Under 30 Min'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/9213979/pexels-photo-9213979.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Warm corn tortillas filled with scrambled eggs, black beans, and salsa for a savory morning start.',
     rating: 4.6,
@@ -1118,6 +1159,7 @@ export const recipes: Recipe[] = [
     minutes: 5,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 5 min',
+    image: { uri: 'https://images.pexels.com/photos/6529632/pexels-photo-6529632.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A toasted everything bagel spread thick with cream cheese and sliced tomato and cucumber.',
     rating: 4.3,
@@ -1141,6 +1183,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/12174224/pexels-photo-12174224.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A thick mango and coconut milk smoothie topped with granola, chia seeds, and fresh fruit.',
     rating: 4.5,
@@ -1165,6 +1208,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['High Protein', 'Under 30 Min'],
     subtitle: 'High in Protein • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/5857294/pexels-photo-5857294.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Toasted whole grain bread piled with cottage cheese, sliced peaches, and a drizzle of honey.',
     rating: 4.3,
@@ -1188,6 +1232,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/29042353/pexels-photo-29042353.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy pan-fried zucchini fritters with feta and dill, served with a dollop of yogurt.',
     rating: 4.4,
@@ -1213,6 +1258,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/2310553/pexels-photo-2310553.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Individual baked oatmeal cups with banana and chocolate chips — grab one from the fridge all week.',
     rating: 4.5,
@@ -1238,6 +1284,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/34421472/pexels-photo-34421472.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Flatbread topped with ricotta, cherry tomatoes, fresh basil, and a fried egg.',
     rating: 4.5,
@@ -1262,6 +1309,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/3872352/pexels-photo-3872352.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A warmly spiced baked oatmeal casserole with raisins, perfect for slicing and reheating all week.',
     rating: 4.4,
@@ -1286,6 +1334,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/31921149/pexels-photo-31921149.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Creamy polenta simmered with milk and a touch of honey, topped with warm mixed berries.',
     rating: 4.3,
@@ -1310,6 +1359,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['High Protein', 'Gluten Free'],
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/5639286/pexels-photo-5639286.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A fluffy baked egg frittata loaded with sautéed mushrooms, spinach, and melted gruyère.',
     rating: 4.7,
@@ -1335,6 +1385,7 @@ export const recipes: Recipe[] = [
     minutes: 5,
     tags: ['Under 30 Min', 'High Protein'],
     subtitle: 'Under 30 Min • 5 min',
+    image: { uri: 'https://images.pexels.com/photos/6659867/pexels-photo-6659867.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A thick, protein-packed smoothie blending banana, peanut butter, and milk.',
     rating: 4.5,
@@ -1358,6 +1409,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: [],
     subtitle: 'Weekend Favorite • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/38939123/pexels-photo-38939123.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crisp whole grain waffles topped with a swirl of maple-sweetened Greek yogurt and pecans.',
     rating: 4.6,
@@ -1383,6 +1435,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/8199525/pexels-photo-8199525.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Warm farro topped with a soft-boiled egg, roasted tomatoes, and a lemon-tahini drizzle.',
     rating: 4.4,
@@ -1408,6 +1461,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/14302153/pexels-photo-14302153.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A hearty skillet of roasted potatoes, peppers, and onions finished with baked eggs.',
     rating: 4.5,
@@ -1432,6 +1486,7 @@ export const recipes: Recipe[] = [
     minutes: 8,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 8 min',
+    image: { uri: 'https://images.pexels.com/photos/6823321/pexels-photo-6823321.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Creamy coconut yogurt layered with crunchy granola and fresh berries.',
     rating: 4.3,
@@ -1455,6 +1510,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/9792459/pexels-photo-9792459.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Naan bread topped with egg, spinach, and mozzarella, baked until the cheese is bubbly.',
     rating: 4.4,
@@ -1478,6 +1534,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/27850086/pexels-photo-27850086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Rolled oats soaked overnight with pumpkin purée, warm spices, and maple syrup.',
     rating: 4.5,
@@ -1502,6 +1559,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/11280378/pexels-photo-11280378.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A toasted English muffin sandwich with fried egg, mozzarella, tomato, and basil.',
     rating: 4.4,
@@ -1526,6 +1584,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/7111383/pexels-photo-7111383.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fluffy pancakes studded with grated apple and warm cinnamon, griddled golden.',
     rating: 4.5,
@@ -1551,6 +1610,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Gluten Free'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/5848079/pexels-photo-5848079.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'All the flavors of a breakfast burrito served over rice — scrambled eggs, black beans, and avocado.',
     rating: 4.6,
@@ -1576,6 +1636,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/5836438/pexels-photo-5836438.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Toasted sourdough spread with lemony herbed ricotta and a drizzle of olive oil.',
     rating: 4.3,
@@ -1600,6 +1661,7 @@ export const recipes: Recipe[] = [
     minutes: 10,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 10 min',
+    image: { uri: 'https://images.pexels.com/photos/5589029/pexels-photo-5589029.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Chia pudding infused with earthy matcha and a touch of honey, chilled until thick.',
     rating: 4.2,
@@ -1623,6 +1685,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['High Protein'],
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/5175621/pexels-photo-5175621.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy baked falafel wrapped in warm pita with lettuce, tomato, and a garlicky yogurt sauce.',
     rating: 4.7,
@@ -1648,6 +1711,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/15059687/pexels-photo-15059687.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crisp romaine tossed in a creamy Caesar dressing, topped with crunchy roasted chickpeas.',
     rating: 4.5,
@@ -1671,6 +1735,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/37996935/pexels-photo-37996935.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Deconstructed sushi with seasoned rice, avocado, cucumber, and edamame, drizzled with spicy mayo.',
     rating: 4.6,
@@ -1696,6 +1761,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/1277483/pexels-photo-1277483.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A velvety roasted butternut squash soup finished with a swirl of coconut milk.',
     rating: 4.7,
@@ -1721,6 +1787,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/5950480/pexels-photo-5950480.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crisp cucumber, tomato, and olives tossed in a lemon-oregano dressing with warm grilled halloumi.',
     rating: 4.7,
@@ -1746,6 +1813,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min', 'High Protein'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/5848702/pexels-photo-5848702.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy folded tortillas filled with melty cheese, black beans, and corn.',
     rating: 4.5,
@@ -1769,6 +1837,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/27009849/pexels-photo-27009849.png?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Chilled soba noodles in a savory miso-sesame broth with scallion and soft-boiled egg.',
     rating: 4.5,
@@ -1794,6 +1863,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/3649535/pexels-photo-3649535.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Sweet roasted beets over peppery arugula with creamy goat cheese and toasted walnuts.',
     rating: 4.6,
@@ -1818,6 +1888,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['High Protein'],
     subtitle: 'High in Protein • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/37113556/pexels-photo-37113556.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy pan-fried tofu and shredded slaw wrapped in a tortilla with spicy peanut sauce.',
     rating: 4.6,
@@ -1843,6 +1914,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/38475443/pexels-photo-38475443.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Classic creamy tomato basil soup paired with a crisp, buttery grilled cheese for dipping.',
     rating: 4.8,
@@ -1868,6 +1940,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Gluten Free', 'Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/37976941/pexels-photo-37976941.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A fresh, herb-packed quinoa salad with tomato, cucumber, and lots of parsley and mint.',
     rating: 4.4,
@@ -1893,6 +1966,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/32961655/pexels-photo-32961655.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A crusty baguette piled with pickled carrots, cucumber, cilantro, and crispy marinated tofu.',
     rating: 4.6,
@@ -1917,6 +1991,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/5639476/pexels-photo-5639476.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A rich, creamy broccoli soup loaded with sharp cheddar cheese.',
     rating: 4.6,
@@ -1941,6 +2016,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['High Protein', 'Meal Prep'],
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/1311771/pexels-photo-1311771.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Brown rice topped with black beans, corn, avocado, and a smoky lime crema.',
     rating: 4.6,
@@ -1966,6 +2042,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/1885578/pexels-photo-1885578.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Grilled ciabatta pressed with fresh mozzarella, tomato, basil, and balsamic glaze.',
     rating: 4.5,
@@ -1990,6 +2067,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['High Protein', 'Meal Prep', 'Gluten Free'],
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/35041668/pexels-photo-35041668.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A warming lentil soup simmered with curry spices, carrot, and coconut milk.',
     rating: 4.7,
@@ -2015,6 +2093,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/15611222/pexels-photo-15611222.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crunchy cabbage and carrot slaw tossed in a sesame-ginger dressing with crispy wonton strips.',
     rating: 4.4,
@@ -2039,6 +2118,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/34227786/pexels-photo-34227786.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A tortilla spread thick with hummus and rolled up with crunchy fresh vegetables.',
     rating: 4.3,
@@ -2063,6 +2143,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep', 'Gluten Free'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/6708438/pexels-photo-6708438.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Golden roasted cauliflower over quinoa with pomegranate seeds and a lemon-tahini drizzle.',
     rating: 4.6,
@@ -2088,6 +2169,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min', 'Gluten Free'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/33988118/pexels-photo-33988118.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Spiralized zucchini noodles tossed in fresh basil pesto with cherry tomatoes and pine nuts.',
     rating: 4.5,
@@ -2113,6 +2195,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/5848703/pexels-photo-5848703.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Roasted sweet potato and black beans in corn tortillas with a squeeze of lime and cilantro.',
     rating: 4.6,
@@ -2138,6 +2221,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/3832337/pexels-photo-3832337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A hearty Italian vegetable soup with pasta, white beans, and plenty of herbs.',
     rating: 4.6,
@@ -2163,6 +2247,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/18824025/pexels-photo-18824025.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Grilled zucchini, eggplant, and peppers layered on ciabatta with pesto and goat cheese.',
     rating: 4.5,
@@ -2187,6 +2272,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['High Protein', 'Under 30 Min'],
     subtitle: 'High in Protein • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/35588679/pexels-photo-35588679.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Quick fried rice with edamame, scrambled egg, and scallions in a savory soy glaze.',
     rating: 4.5,
@@ -2212,6 +2298,7 @@ export const recipes: Recipe[] = [
     minutes: 15,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 15 min',
+    image: { uri: 'https://images.pexels.com/photos/36430326/pexels-photo-36430326.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Massaged kale tossed in Caesar dressing with parmesan, wrapped up with crispy chickpeas.',
     rating: 4.3,
@@ -2236,6 +2323,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['High Protein', 'Meal Prep', 'Gluten Free'],
     subtitle: 'High in Protein • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/7189415/pexels-photo-7189415.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A fragrant stew of chickpeas, tomatoes, and warm spices like cinnamon and cumin.',
     rating: 4.7,
@@ -2261,6 +2349,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/6544374/pexels-photo-6544374.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A sheet pan of tortilla chips loaded with black beans, melted cheese, and all the toppings.',
     rating: 4.6,
@@ -2285,6 +2374,7 @@ export const recipes: Recipe[] = [
     minutes: 55,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 55 min',
+    image: { uri: 'https://images.pexels.com/photos/1707917/pexels-photo-1707917.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy breaded eggplant slices layered with marinara and melted mozzarella, baked until bubbling.',
     rating: 4.7,
@@ -2310,6 +2400,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/34723314/pexels-photo-34723314.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Stir-fried rice noodles with egg, bean sprouts, and crushed peanuts in a tangy tamarind sauce.',
     rating: 4.6,
@@ -2335,6 +2426,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/7531435/pexels-photo-7531435.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Thin flatbread topped with tomato sauce, fresh mozzarella, and basil, baked until crisp.',
     rating: 4.6,
@@ -2359,6 +2451,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/6316531/pexels-photo-6316531.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Creamy mac and cheese with roasted butternut squash blended into the sauce for extra richness.',
     rating: 4.7,
@@ -2384,6 +2477,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Gluten Free • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/30858402/pexels-photo-30858402.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Cauliflower and chickpeas simmered in a creamy, spiced tomato sauce.',
     rating: 4.7,
@@ -2409,6 +2503,7 @@ export const recipes: Recipe[] = [
     minutes: 50,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 50 min',
+    image: { uri: 'https://images.pexels.com/photos/7368033/pexels-photo-7368033.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Jumbo pasta shells stuffed with a creamy spinach-ricotta filling, baked in marinara.',
     rating: 4.7,
@@ -2434,6 +2529,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['High Protein'],
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/7220777/pexels-photo-7220777.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Hearty black bean patties seasoned with cumin and smoked paprika, pan-seared until crisp.',
     rating: 4.5,
@@ -2459,6 +2555,7 @@ export const recipes: Recipe[] = [
     minutes: 45,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 45 min',
+    image: { uri: 'https://images.pexels.com/photos/6899840/pexels-photo-6899840.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Saffron-scented rice studded with artichokes, peppers, and peas, cooked in one pan.',
     rating: 4.6,
@@ -2484,6 +2581,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free', 'Under 30 Min'],
     subtitle: 'Under 30 Min • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/6543754/pexels-photo-6543754.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy roasted cauliflower tossed in chili-lime spice, tucked into tortillas with slaw.',
     rating: 4.5,
@@ -2509,6 +2607,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/5848473/pexels-photo-5848473.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Broiled eggplant halves brushed with a sweet-savory miso glaze until caramelized.',
     rating: 4.6,
@@ -2534,6 +2633,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['High Protein', 'Gluten Free', 'Meal Prep'],
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/9287035/pexels-photo-9287035.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Chickpeas simmered in a fragrant onion-tomato masala with ginger and garam masala.',
     rating: 4.7,
@@ -2559,6 +2659,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/32655065/pexels-photo-32655065.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A quick weeknight fried rice loaded with carrots, peas, and scrambled egg.',
     rating: 4.4,
@@ -2584,6 +2685,7 @@ export const recipes: Recipe[] = [
     minutes: 40,
     tags: ['High Protein'],
     subtitle: 'High in Protein • 40 min',
+    image: { uri: 'https://images.pexels.com/photos/6275187/pexels-photo-6275187.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Herb-packed baked falafel served with a cool cucumber-yogurt tzatziki and pita.',
     rating: 4.6,
@@ -2609,6 +2711,7 @@ export const recipes: Recipe[] = [
     minutes: 60,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 60 min',
+    image: { uri: 'https://images.pexels.com/photos/32125999/pexels-photo-32125999.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Layers of pasta, roasted zucchini and eggplant, ricotta, and marinara baked until golden.',
     rating: 4.7,
@@ -2634,6 +2737,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free', 'Under 30 Min'],
     subtitle: 'Under 30 Min • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/31029754/pexels-photo-31029754.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Mixed vegetables simmered in a fragrant coconut green curry sauce.',
     rating: 4.6,
@@ -2659,6 +2763,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/4163354/pexels-photo-4163354.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Large portobello caps stuffed with spinach, breadcrumbs, and melted mozzarella.',
     rating: 4.5,
@@ -2684,6 +2789,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Gluten Free', 'Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/32371267/pexels-photo-32371267.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Sizzling peppers and onions over cilantro-lime rice with black beans and guacamole.',
     rating: 4.6,
@@ -2709,6 +2815,7 @@ export const recipes: Recipe[] = [
     minutes: 25,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 25 min',
+    image: { uri: 'https://images.pexels.com/photos/6240973/pexels-photo-6240973.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Pillowy gnocchi tossed in a creamy tomato sauce with fresh basil and parmesan.',
     rating: 4.7,
@@ -2734,6 +2841,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['High Protein'],
     subtitle: 'High in Protein • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/12913628/pexels-photo-12913628.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Crispy pan-fried tofu tossed with bell pepper and pineapple in a tangy sweet-and-sour sauce.',
     rating: 4.5,
@@ -2759,6 +2867,7 @@ export const recipes: Recipe[] = [
     minutes: 45,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 45 min',
+    image: { uri: 'https://images.pexels.com/photos/36040965/pexels-photo-36040965.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A classic French vegetable stew of eggplant, zucchini, and tomato, simmered with herbs.',
     rating: 4.6,
@@ -2784,6 +2893,7 @@ export const recipes: Recipe[] = [
     minutes: 45,
     tags: ['Gluten Free', 'Meal Prep'],
     subtitle: 'Meal Prep • 45 min',
+    image: { uri: 'https://images.pexels.com/photos/37059699/pexels-photo-37059699.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Fragrant basmati rice layered with spiced mixed vegetables and fried onions.',
     rating: 4.6,
@@ -2809,6 +2919,7 @@ export const recipes: Recipe[] = [
     minutes: 55,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 55 min',
+    image: { uri: 'https://images.pexels.com/photos/9203737/pexels-photo-9203737.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Baked potatoes scooped, mashed with cheddar and steamed broccoli, and baked again until golden.',
     rating: 4.6,
@@ -2834,6 +2945,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['High Protein', 'Gluten Free'],
     subtitle: 'High in Protein • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/5773961/pexels-photo-5773961.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Warm rice topped with sautéed vegetables, a fried egg, and spicy gochujang sauce.',
     rating: 4.7,
@@ -2859,6 +2971,7 @@ export const recipes: Recipe[] = [
     minutes: 20,
     tags: ['Under 30 Min'],
     subtitle: 'Under 30 Min • 20 min',
+    image: { uri: 'https://images.pexels.com/photos/4190997/pexels-photo-4190997.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Garlicky olive oil pasta tossed with sautéed cherry tomatoes and spinach.',
     rating: 4.5,
@@ -2884,6 +2997,7 @@ export const recipes: Recipe[] = [
     minutes: 50,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 50 min',
+    image: { uri: 'https://images.pexels.com/photos/288264/pexels-photo-288264.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'A creamy vegetable filling of carrots, peas, and potato baked under a flaky pastry crust.',
     rating: 4.7,
@@ -2909,6 +3023,7 @@ export const recipes: Recipe[] = [
     minutes: 30,
     tags: ['Gluten Free'],
     subtitle: 'Gluten Free • 30 min',
+    image: { uri: 'https://images.pexels.com/photos/15801922/pexels-photo-15801922.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Shredded jackfruit simmered in smoky barbecue sauce, piled into tortillas with slaw.',
     rating: 4.5,
@@ -2934,6 +3049,7 @@ export const recipes: Recipe[] = [
     minutes: 35,
     tags: ['Meal Prep'],
     subtitle: 'Meal Prep • 35 min',
+    image: { uri: 'https://images.pexels.com/photos/29935503/pexels-photo-29935503.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' },
     description:
       'Creamy mushroom stroganoff with a tangy sour cream sauce, served over egg noodles.',
     rating: 4.6,
