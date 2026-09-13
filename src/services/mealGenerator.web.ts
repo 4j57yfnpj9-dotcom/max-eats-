@@ -19,3 +19,9 @@ export async function generateMeal(
 ): Promise<Recipe> {
   return pickSuggestion(tags, previousId);
 }
+
+// Same mock fallback as generateMeal — no API key is safe to ship in the
+// public web build, so the photo itself is never actually inspected here.
+export async function generateMealFromPhoto(_base64Image: string, tags: Tag[]): Promise<Recipe> {
+  return pickSuggestion(tags);
+}

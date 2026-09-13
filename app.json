@@ -31,6 +31,12 @@
         {
           "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to access your location"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan your fridge for a meal idea."
+        }
       ]
     ],
     "experiments": {

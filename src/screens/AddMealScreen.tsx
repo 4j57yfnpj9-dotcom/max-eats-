@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { RootTabParamList } from '../navigation/TabNavigator';
@@ -17,7 +18,7 @@ import { lightTheme, fontFamily, radius, spacing } from '../theme';
 import { Recipe, Tag, quickPickTags } from '../data/recipes';
 import { useFavorites } from '../context/FavoritesContext';
 import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
-import { generateMeal } from '../services/mealGenerator';
+import { generateMeal, generateMealFromPhoto } from '../services/mealGenerator';
 import { Chip } from '../components/Chip';
 import { RecipeCard } from '../components/RecipeCard';
 
@@ -43,6 +44,31 @@ export function AddMealScreen() {
     setErrorMessage(null);
     try {
       const recipe = await generateMeal(promptText, selectedTags, generatedRecipe?.id);
+      setGeneratedRecipe(recipe);
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Try again.');
+    } finally {
+      setIsGenerating(false);
+    }
+  }
+
+  async function handleScanFridge() {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMessage('Camera access is needed to scan your fridge.');
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      base64: true,
+      quality: 0.5,
+    });
+    if (result.canceled || !result.assets[0]?.base64) return;
+
+    setIsGenerating(true);
+    setErrorMessage(null);
+    try {
+      const recipe = await generateMealFromPhoto(result.assets[0].base64, selectedTags);
       setGeneratedRecipe(recipe);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Something went wrong. Try again.');
@@ -111,6 +137,15 @@ export function AddMealScreen() {
               </Text>
             </>
           )}
+        </Pressable>
+
+        <Pressable
+          style={[styles.scanButton, isGenerating && styles.generateButtonDisabled]}
+          onPress={handleScanFridge}
+          disabled={isGenerating}
+        >
+          <Ionicons name="camera-outline" size={18} color={lightTheme.accent} />
+          <Text style={styles.scanLabel}>Scan Your Fridge</Text>
         </Pressable>
 
         {errorMessage && !isGenerating && <Text style={styles.errorText}>{errorMessage}</Text>}
@@ -216,6 +251,22 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.bodySemiBold,
     fontSize: 16,
     color: lightTheme.card,
+  },
+  scanButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: lightTheme.accent,
+    paddingVertical: spacing.md,
+    marginTop: spacing.md,
+  },
+  scanLabel: {
+    fontFamily: fontFamily.bodySemiBold,
+    fontSize: 16,
+    color: lightTheme.accent,
   },
   errorText: {
     fontFamily: fontFamily.body,

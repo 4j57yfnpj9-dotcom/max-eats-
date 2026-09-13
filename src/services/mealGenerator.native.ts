@@ -14,11 +14,41 @@ const GeneratedRecipeSchema = z.object({
   steps: z.array(z.string()).min(1),
 });
 
+type GeneratedRecipe = z.infer<typeof GeneratedRecipeSchema>;
+
+const SYSTEM_PROMPT =
+  'You are the recipe generation engine behind Verdant, a healthy-eating app. Create one original, appealing, realistically cookable recipe that fits the request. Keep ingredients and steps concise and home-cook friendly.';
+
 function slugify(title: string) {
   return title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
+}
+
+function requireApiKey() {
+  const apiKey = process.env.EXPO_PUBLIC_MAX_POWER_KEY;
+  if (!apiKey) {
+    throw new Error(
+      'No Anthropic API key found. Add EXPO_PUBLIC_MAX_POWER_KEY to .env.local and restart the app.'
+    );
+  }
+  return apiKey;
+}
+
+function toRecipe(parsed: GeneratedRecipe): Recipe {
+  return {
+    id: `${slugify(parsed.title)}-${Date.now()}`,
+    title: parsed.title,
+    category: parsed.category,
+    minutes: parsed.minutes,
+    tags: parsed.tags,
+    isNew: true,
+    description: parsed.description,
+    servings: parsed.servings,
+    ingredients: parsed.ingredients,
+    steps: parsed.steps,
+  };
 }
 
 // Native only — the API key lives in EXPO_PUBLIC_MAX_POWER_KEY (from a
@@ -30,14 +60,7 @@ export async function generateMeal(
   tags: Tag[],
   _previousId?: string
 ): Promise<Recipe> {
-  const apiKey = process.env.EXPO_PUBLIC_MAX_POWER_KEY;
-  if (!apiKey) {
-    throw new Error(
-      'No Anthropic API key found. Add EXPO_PUBLIC_MAX_POWER_KEY to .env.local and restart the app.'
-    );
-  }
-
-  const client = new Anthropic({ apiKey });
+  const client = new Anthropic({ apiKey: requireApiKey() });
 
   const requestParts: string[] = [];
   if (promptText.trim()) {
@@ -53,8 +76,7 @@ export async function generateMeal(
   const response = await client.messages.parse({
     model: 'claude-opus-5',
     max_tokens: 2048,
-    system:
-      'You are the recipe generation engine behind Verdant, a healthy-eating app. Create one original, appealing, realistically cookable recipe that fits the request. Keep ingredients and steps concise and home-cook friendly.',
+    system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: requestParts.join('\n') }],
     output_config: { format: zodOutputFormat(GeneratedRecipeSchema) },
   });
@@ -64,16 +86,42 @@ export async function generateMeal(
     throw new Error('The AI response could not be parsed. Try again.');
   }
 
-  return {
-    id: `${slugify(parsed.title)}-${Date.now()}`,
-    title: parsed.title,
-    category: parsed.category,
-    minutes: parsed.minutes,
-    tags: parsed.tags,
-    isNew: true,
-    description: parsed.description,
-    servings: parsed.servings,
-    ingredients: parsed.ingredients,
-    steps: parsed.steps,
-  };
+  return toRecipe(parsed);
+}
+
+// "Scan your fridge" — sends a photo to Claude's vision input alongside the
+// same structured-output schema as the text-prompt generator, so it can spot
+// what's actually on hand and build a recipe around it.
+export async function generateMealFromPhoto(base64Image: string, tags: Tag[]): Promise<Recipe> {
+  const client = new Anthropic({ apiKey: requireApiKey() });
+
+  const requestParts: string[] = [
+    'Identify the food ingredients visible in this photo of a fridge or pantry, then create one recipe that primarily uses them. Assume common staples like oil, salt, pepper, and basic spices are on hand even if not visible.',
+  ];
+  if (tags.length > 0) {
+    requestParts.push(`Required tags (include all of these in the tags field): ${tags.join(', ')}`);
+  }
+
+  const response = await client.messages.parse({
+    model: 'claude-opus-5',
+    max_tokens: 2048,
+    system: SYSTEM_PROMPT,
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: base64Image } },
+          { type: 'text', text: requestParts.join('\n') },
+        ],
+      },
+    ],
+    output_config: { format: zodOutputFormat(GeneratedRecipeSchema) },
+  });
+
+  const parsed = response.parsed_output;
+  if (!parsed) {
+    throw new Error('The AI response could not be parsed. Try again.');
+  }
+
+  return toRecipe(parsed);
 }
