@@ -1,10 +1,10 @@
 import { Restaurant, RestaurantTag } from '../data/restaurants';
 
-type SearchParams = {
-  latitude: number;
-  longitude: number;
-  openNow?: boolean;
-};
+export type SearchLocation =
+  | { latitude: number; longitude: number }
+  | { location: string };
+
+type SearchParams = SearchLocation & { openNow?: boolean };
 
 type YelpCategory = { alias: string; title: string };
 
@@ -73,21 +73,24 @@ function mapBusinessToRestaurant(business: YelpBusiness): Restaurant {
 // a browser at all (see restaurantFinder.web.ts). The key lives in
 // EXPO_PUBLIC_YELP_API_KEY (gitignored .env.local), same pattern as
 // mealGenerator.native.ts.
-export async function searchRestaurants({
-  latitude,
-  longitude,
-  openNow,
-}: SearchParams): Promise<Restaurant[]> {
+//
+// Accepts either device coordinates or a free-text location — Yelp geocodes
+// the text itself, so a typed address needs no separate geocoding step.
+export async function searchRestaurants(searchParams: SearchParams): Promise<Restaurant[]> {
   const apiKey = requireApiKey();
 
   const params = new URLSearchParams({
-    latitude: String(latitude),
-    longitude: String(longitude),
     categories: 'vegetarian,vegan',
     limit: '20',
     sort_by: 'best_match',
   });
-  if (openNow) params.set('open_now', 'true');
+  if ('location' in searchParams) {
+    params.set('location', searchParams.location);
+  } else {
+    params.set('latitude', String(searchParams.latitude));
+    params.set('longitude', String(searchParams.longitude));
+  }
+  if (searchParams.openNow) params.set('open_now', 'true');
 
   const response = await fetch(`https://api.yelp.com/v3/businesses/search?${params.toString()}`, {
     headers: { Authorization: `Bearer ${apiKey}` },

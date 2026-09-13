@@ -1,10 +1,10 @@
 import { Restaurant } from '../data/restaurants';
 
-type SearchParams = {
-  latitude: number;
-  longitude: number;
-  openNow?: boolean;
-};
+type SearchLocation =
+  | { latitude: number; longitude: number }
+  | { location: string };
+
+type SearchParams = SearchLocation & { openNow?: boolean };
 
 // Yelp Fusion's API has no CORS headers, so it can't be called directly from
 // a browser — there's no way around this without a backend proxy, which this

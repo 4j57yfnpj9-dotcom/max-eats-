@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ExploreStackParamList } from '../navigation/ExploreStackNavigator';
 import { restaurants as sampleRestaurants, Restaurant, RestaurantTag } from '../data/restaurants';
-import { searchRestaurants } from '../services/restaurantFinder';
+import { searchRestaurants, SearchLocation } from '../services/restaurantFinder';
 import { useUserProfile } from '../context/UserProfileContext';
 import { darkTheme, fontFamily, radius, spacing } from '../theme';
 import { RestaurantCard } from '../components/RestaurantCard';
@@ -77,7 +77,11 @@ export function FindRestaurantsScreen() {
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
 
   const [locationLabel, setLocationLabel] = useState('Cincinnati, OH');
-  const [coords, setCoords] = useState(CINCINNATI);
+  // What's actually searched — device coordinates, or free text the user
+  // typed and submitted. Yelp geocodes a text location itself, so this only
+  // changes on an explicit user action (GPS button, or submitting the field)
+  // and never as a side effect of a search finishing.
+  const [searchTarget, setSearchTarget] = useState<SearchLocation>(CINCINNATI);
   const [isLocating, setIsLocating] = useState(false);
   const [isLoadingResults, setIsLoadingResults] = useState(true);
   const [liveResults, setLiveResults] = useState<Restaurant[] | null>(null);
@@ -91,7 +95,7 @@ export function FindRestaurantsScreen() {
       if (status !== 'granted') return;
 
       const position = await Location.getCurrentPositionAsync({});
-      setCoords({
+      setSearchTarget({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
@@ -110,6 +114,12 @@ export function FindRestaurantsScreen() {
     }
   }
 
+  function handleLocationSubmit() {
+    const query = locationLabel.trim();
+    if (!query) return;
+    setSearchTarget({ location: query });
+  }
+
   useEffect(() => {
     refreshLocation();
   }, []);
@@ -120,7 +130,7 @@ export function FindRestaurantsScreen() {
     setIsLoadingResults(true);
     setLiveOpenNowResults(null);
 
-    searchRestaurants(coords)
+    searchRestaurants(searchTarget)
       .then((results) => {
         if (cancelled) return;
         setLiveResults(results);
@@ -144,16 +154,16 @@ export function FindRestaurantsScreen() {
     return () => {
       cancelled = true;
     };
-  }, [coords]);
+  }, [searchTarget]);
 
   // "Open Now" re-queries live with a server-side filter rather than trusting
   // a per-item flag we don't have from a plain search response.
   useEffect(() => {
     if (fallbackReason || activeFilter !== 'Open Now' || liveOpenNowResults) return;
-    searchRestaurants({ ...coords, openNow: true })
+    searchRestaurants({ ...searchTarget, openNow: true })
       .then(setLiveOpenNowResults)
       .catch(() => {});
-  }, [activeFilter, coords, fallbackReason, liveOpenNowResults]);
+  }, [activeFilter, searchTarget, fallbackReason, liveOpenNowResults]);
 
   const usingSampleData = fallbackReason !== null;
   const baseList = usingSampleData
@@ -221,6 +231,8 @@ export function FindRestaurantsScreen() {
           <TextInput
             value={locationLabel}
             onChangeText={setLocationLabel}
+            onSubmitEditing={handleLocationSubmit}
+            returnKeyType="search"
             placeholderTextColor={darkTheme.textMuted}
             style={styles.locationInput}
           />
