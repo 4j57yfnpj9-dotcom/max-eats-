@@ -15,6 +15,7 @@ import { CategoryCard } from '../components/CategoryCard';
 import { Chip } from '../components/Chip';
 import { HomeStackParamList } from '../navigation/HomeStackNavigator';
 import { RootTabParamList } from '../navigation/TabNavigator';
+import { useNotifications } from '../context/NotificationsContext';
 
 // Composite because this screen needs to navigate both within its own Home
 // stack (RecipeDetail, RecipeList, Notifications) and out to sibling tabs
@@ -48,6 +49,7 @@ function getQuickPickIcon(tag: Tag, color: string) {
 
 export function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { unreadCount } = useNotifications();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
@@ -69,7 +71,11 @@ export function HomeScreen() {
   }
 
   const menuItems: MenuItem[] = [
-    { label: 'Profile', icon: 'person-outline', onPress: () => navigation.navigate('Profile') },
+    {
+      label: 'Profile',
+      icon: 'person-outline',
+      onPress: () => navigation.navigate('Profile', { screen: 'ProfileMain' }),
+    },
     { label: 'Saved', icon: 'bookmark-outline', onPress: () => navigation.navigate('Saved') },
     { label: 'Notifications', icon: 'notifications-outline', onPress: () => navigation.navigate('Notifications') },
   ];
@@ -86,8 +92,13 @@ export function HomeScreen() {
           <Pressable hitSlop={8} onPress={() => setMenuVisible(true)}>
             <Ionicons name="menu-outline" size={26} color={darkTheme.text} />
           </Pressable>
-          <Pressable hitSlop={8} onPress={() => navigation.navigate('Notifications')}>
+          <Pressable
+            hitSlop={8}
+            style={styles.bellWrap}
+            onPress={() => navigation.navigate('Notifications')}
+          >
             <Ionicons name="notifications-outline" size={24} color={darkTheme.text} />
+            {unreadCount > 0 && <View style={styles.unreadDot} />}
           </Pressable>
         </View>
 
@@ -227,6 +238,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: spacing.lg,
+  },
+  bellWrap: {
+    position: 'relative',
+  },
+  unreadDot: {
+    position: 'absolute',
+    top: -2,
+    right: -2,
+    width: 9,
+    height: 9,
+    borderRadius: 5,
+    backgroundColor: darkTheme.accent,
+    borderWidth: 2,
+    borderColor: darkTheme.background,
   },
   menuBackdrop: {
     flex: 1,

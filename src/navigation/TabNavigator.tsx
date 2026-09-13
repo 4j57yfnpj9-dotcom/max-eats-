@@ -3,20 +3,20 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { HomeStackNavigator, HomeStackParamList } from './HomeStackNavigator';
-import { FindRestaurantsScreen } from '../screens/FindRestaurantsScreen';
+import { ExploreStackNavigator, ExploreStackParamList } from './ExploreStackNavigator';
+import { ProfileStackNavigator, ProfileStackParamList } from './ProfileStackNavigator';
 import { SavedScreen } from '../screens/SavedScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
 import { AddMealScreen } from '../screens/AddMealScreen';
 import { lightTheme, fontFamily } from '../theme';
 
-// Lets screens outside the Home stack (e.g. Saved) navigate into it —
-// `navigation.navigate('Home', { screen: 'RecipeDetail', params: {...} })`.
+// Lets screens outside the Home/Explore/Profile stacks (e.g. Saved) navigate
+// into them — `navigation.navigate('Home', { screen: 'RecipeDetail', params: {...} })`.
 export type RootTabParamList = {
   Home: NavigatorScreenParams<HomeStackParamList>;
-  Explore: undefined;
+  Explore: NavigatorScreenParams<ExploreStackParamList>;
   Add: undefined;
   Saved: undefined;
-  Profile: undefined;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -55,7 +55,7 @@ export function TabNavigator() {
       />
       <Tab.Screen
         name="Explore"
-        component={FindRestaurantsScreen}
+        component={ExploreStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'search' : 'search-outline'} size={22} color={color} />
@@ -81,7 +81,7 @@ export function TabNavigator() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'person' : 'person-outline'} size={22} color={color} />

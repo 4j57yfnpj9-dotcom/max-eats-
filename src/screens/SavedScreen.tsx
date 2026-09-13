@@ -6,7 +6,6 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { RootTabParamList } from '../navigation/TabNavigator';
 import { lightTheme, fontFamily, spacing } from '../theme';
 import { recipes } from '../data/recipes';
-import { restaurants } from '../data/restaurants';
 import { useFavorites } from '../context/FavoritesContext';
 import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
 import { RecipeCard } from '../components/RecipeCard';
@@ -16,15 +15,13 @@ type SavedScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Save
 
 export function SavedScreen() {
   const navigation = useNavigation<SavedScreenNavigationProp>();
-  const { favoriteRecipeIds, favoriteRestaurantIds } = useFavorites();
+  const { favoriteRecipeIds, favoriteRestaurants } = useFavorites();
   const { generatedRecipes } = useGeneratedRecipes();
 
   const savedRecipes = [...recipes, ...generatedRecipes].filter((recipe) =>
     favoriteRecipeIds.includes(recipe.id)
   );
-  const savedRestaurants = restaurants.filter((restaurant) =>
-    favoriteRestaurantIds.includes(restaurant.id)
-  );
+  const savedRestaurants = favoriteRestaurants;
   const hasNothingSaved = savedRecipes.length === 0 && savedRestaurants.length === 0;
 
   return (
@@ -68,7 +65,17 @@ export function SavedScreen() {
                 <Text style={styles.sectionTitle}>Restaurants</Text>
                 <View style={styles.list}>
                   {savedRestaurants.map((restaurant) => (
-                    <RestaurantCard key={restaurant.id} restaurant={restaurant} theme={lightTheme} />
+                    <RestaurantCard
+                      key={restaurant.id}
+                      restaurant={restaurant}
+                      theme={lightTheme}
+                      onPress={() =>
+                        navigation.navigate('Explore', {
+                          screen: 'RestaurantDetail',
+                          params: { restaurant },
+                        })
+                      }
+                    />
                   ))}
                 </View>
               </>

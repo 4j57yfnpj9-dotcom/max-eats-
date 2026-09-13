@@ -1,17 +1,30 @@
-import { useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { RootTabParamList } from '../navigation/TabNavigator';
-import { restaurants, Restaurant, RestaurantTag } from '../data/restaurants';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ExploreStackParamList } from '../navigation/ExploreStackNavigator';
+import { restaurants as sampleRestaurants, Restaurant, RestaurantTag } from '../data/restaurants';
+import { searchRestaurants } from '../services/restaurantFinder';
+import { useUserProfile } from '../context/UserProfileContext';
 import { darkTheme, fontFamily, radius, spacing } from '../theme';
 import { RestaurantCard } from '../components/RestaurantCard';
 import { RestaurantMap } from '../components/RestaurantMap';
 import { Chip } from '../components/Chip';
 
-type FindRestaurantsNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Explore'>;
+type FindRestaurantsNavigationProp = NativeStackNavigationProp<ExploreStackParamList, 'ExploreMain'>;
 
 const filterOptions: ('All' | RestaurantTag | 'Open Now')[] = [
   'All',
@@ -28,6 +41,12 @@ const sortMenuOptions: { value: SortOption; label: string }[] = [
   { value: 'distance', label: 'Sort by distance' },
 ];
 
+// Matches the coordinates baked into data/restaurants.ts, used only when we
+// can't get a real device location (permission denied, or an error).
+const CINCINNATI = { latitude: 39.1031, longitude: -84.512 };
+
+type FallbackReason = 'web' | 'no-key' | 'error' | null;
+
 function sortRestaurants(list: Restaurant[], sortBy: SortOption | null) {
   if (!sortBy) return list;
   const sorted = [...list];
@@ -36,17 +55,117 @@ function sortRestaurants(list: Restaurant[], sortBy: SortOption | null) {
   return sorted;
 }
 
+function describeFallback(reason: FallbackReason) {
+  if (reason === 'web') {
+    return "Live results aren't available in the web preview — showing sample restaurants.";
+  }
+  if (reason === 'no-key') {
+    return 'Showing sample restaurants. Add a Yelp API key to see real results near you.';
+  }
+  return "Couldn't load live restaurants right now — showing sample restaurants.";
+}
+
 export function FindRestaurantsScreen() {
   const navigation = useNavigation<FindRestaurantsNavigationProp>();
-  const [activeFilter, setActiveFilter] = useState<(typeof filterOptions)[number]>('All');
-  const [location, setLocation] = useState('Cincinnati, OH');
+  const { dietaryPreferences } = useUserProfile();
+  // Defaults to a saved dietary preference (if one matches a filter chip
+  // here) rather than always starting from "All" — set in Profile.
+  const [activeFilter, setActiveFilter] = useState<(typeof filterOptions)[number]>(
+    () => dietaryPreferences.find((tag): tag is RestaurantTag => filterOptions.includes(tag)) ?? 'All'
+  );
   const [sortBy, setSortBy] = useState<SortOption | null>(null);
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
 
+  const [locationLabel, setLocationLabel] = useState('Cincinnati, OH');
+  const [coords, setCoords] = useState(CINCINNATI);
+  const [isLocating, setIsLocating] = useState(false);
+  const [isLoadingResults, setIsLoadingResults] = useState(true);
+  const [liveResults, setLiveResults] = useState<Restaurant[] | null>(null);
+  const [liveOpenNowResults, setLiveOpenNowResults] = useState<Restaurant[] | null>(null);
+  const [fallbackReason, setFallbackReason] = useState<FallbackReason>(null);
+
+  async function refreshLocation() {
+    setIsLocating(true);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') return;
+
+      const position = await Location.getCurrentPositionAsync({});
+      setCoords({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+
+      if (Platform.OS !== 'web') {
+        const [place] = await Location.reverseGeocodeAsync(position.coords);
+        const label = [place?.city, place?.region].filter(Boolean).join(', ');
+        setLocationLabel(label || 'Current Location');
+      } else {
+        setLocationLabel('Current Location');
+      }
+    } catch {
+      // Keep whatever location was already in state (device location, or Cincinnati).
+    } finally {
+      setIsLocating(false);
+    }
+  }
+
+  useEffect(() => {
+    refreshLocation();
+  }, []);
+
+  // Refetch restaurants whenever the search location changes.
+  useEffect(() => {
+    let cancelled = false;
+    setIsLoadingResults(true);
+    setLiveOpenNowResults(null);
+
+    searchRestaurants(coords)
+      .then((results) => {
+        if (cancelled) return;
+        setLiveResults(results);
+        setFallbackReason(null);
+      })
+      .catch((error) => {
+        if (cancelled) return;
+        setLiveResults(null);
+        setFallbackReason(
+          error instanceof Error && error.message.includes('not available on web')
+            ? 'web'
+            : error instanceof Error && error.message.includes('API key')
+              ? 'no-key'
+              : 'error'
+        );
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoadingResults(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [coords]);
+
+  // "Open Now" re-queries live with a server-side filter rather than trusting
+  // a per-item flag we don't have from a plain search response.
+  useEffect(() => {
+    if (fallbackReason || activeFilter !== 'Open Now' || liveOpenNowResults) return;
+    searchRestaurants({ ...coords, openNow: true })
+      .then(setLiveOpenNowResults)
+      .catch(() => {});
+  }, [activeFilter, coords, fallbackReason, liveOpenNowResults]);
+
+  const usingSampleData = fallbackReason !== null;
+  const baseList = usingSampleData
+    ? sampleRestaurants
+    : activeFilter === 'Open Now'
+      ? (liveOpenNowResults ?? liveResults ?? sampleRestaurants)
+      : (liveResults ?? sampleRestaurants);
+
   const filteredRestaurants = sortRestaurants(
-    restaurants.filter((restaurant) => {
+    baseList.filter((restaurant) => {
       if (activeFilter === 'All') return true;
-      if (activeFilter === 'Open Now') return restaurant.isOpenNow;
+      if (activeFilter === 'Open Now') return usingSampleData ? restaurant.isOpenNow : true;
       return restaurant.tags.includes(activeFilter);
     }),
     sortBy
@@ -100,17 +219,17 @@ export function FindRestaurantsScreen() {
         <View style={styles.locationBar}>
           <Ionicons name="location-outline" size={18} color={darkTheme.textMuted} />
           <TextInput
-            value={location}
-            onChangeText={setLocation}
+            value={locationLabel}
+            onChangeText={setLocationLabel}
             placeholderTextColor={darkTheme.textMuted}
             style={styles.locationInput}
           />
-          <Pressable
-            style={styles.locateButton}
-            onPress={() => setLocation('Current Location')}
-            hitSlop={8}
-          >
-            <Ionicons name="navigate" size={16} color={darkTheme.card} />
+          <Pressable style={styles.locateButton} onPress={refreshLocation} hitSlop={8}>
+            {isLocating ? (
+              <ActivityIndicator size="small" color={darkTheme.card} />
+            ) : (
+              <Ionicons name="navigate" size={16} color={darkTheme.card} />
+            )}
           </Pressable>
         </View>
 
@@ -126,9 +245,17 @@ export function FindRestaurantsScreen() {
           ))}
         </View>
 
+        {usingSampleData && (
+          <Text style={styles.fallbackNote}>{describeFallback(fallbackReason)}</Text>
+        )}
+
         <RestaurantMap restaurants={filteredRestaurants} theme={darkTheme} />
 
-        {filteredRestaurants.length === 0 ? (
+        {isLoadingResults && !usingSampleData ? (
+          <View style={styles.emptyState}>
+            <ActivityIndicator color={darkTheme.accent} />
+          </View>
+        ) : filteredRestaurants.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="leaf-outline" size={36} color={darkTheme.textMuted} />
             <Text style={styles.emptySubtitle}>No restaurants match this filter yet.</Text>
@@ -136,7 +263,12 @@ export function FindRestaurantsScreen() {
         ) : (
           <View style={styles.list}>
             {filteredRestaurants.map((restaurant) => (
-              <RestaurantCard key={restaurant.id} restaurant={restaurant} theme={darkTheme} />
+              <RestaurantCard
+                key={restaurant.id}
+                restaurant={restaurant}
+                theme={darkTheme}
+                onPress={() => navigation.navigate('RestaurantDetail', { restaurant })}
+              />
             ))}
           </View>
         )}
@@ -219,6 +351,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.sm,
+    marginTop: spacing.md,
+  },
+  fallbackNote: {
+    fontFamily: fontFamily.body,
+    fontSize: 12,
+    color: darkTheme.textMuted,
     marginTop: spacing.md,
   },
   list: {

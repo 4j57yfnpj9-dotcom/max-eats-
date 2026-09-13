@@ -1,49 +1,22 @@
+import { useEffect } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { lightTheme, fontFamily, radius, spacing } from '../theme';
 import { Card } from '../components/Card';
-
-type NotificationItem = {
-  id: string;
-  icon: keyof typeof Ionicons.glyphMap;
-  title: string;
-  message: string;
-  time: string;
-  unread?: boolean;
-};
-
-// Local stand-in for a real notifications feed — same seam as the rest of
-// the app's mock data, swapped for a backend/push service later.
-const notifications: NotificationItem[] = [
-  {
-    id: 'todays-recommendation',
-    icon: 'restaurant-outline',
-    title: "Today's recommendation is ready",
-    message: 'We picked a Lemon Chickpea Power Bowl for you based on your Quick Picks.',
-    time: '2h ago',
-    unread: true,
-  },
-  {
-    id: 'new-restaurant',
-    icon: 'location-outline',
-    title: 'New spot near you',
-    message: 'Rooted Kitchen just joined Verdant — 2.6 mi away with a 4.8 rating.',
-    time: '1d ago',
-    unread: true,
-  },
-  {
-    id: 'saved-reminder',
-    icon: 'heart-outline',
-    title: "You haven't cooked this in a while",
-    message: 'Revisit your saved recipes for meal ideas this week.',
-    time: '3d ago',
-  },
-];
+import { notifications } from '../data/notifications';
+import { useNotifications } from '../context/NotificationsContext';
 
 export function NotificationsScreen() {
   const navigation = useNavigation();
+  const { isRead, markAllAsRead } = useNotifications();
+
+  // Opening this screen is what clears the unread badge — same convention
+  // as most notification inboxes.
+  useEffect(() => {
+    markAllAsRead();
+  }, [markAllAsRead]);
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -60,7 +33,9 @@ export function NotificationsScreen() {
           <Card key={notification.id} theme={lightTheme} style={styles.card}>
             <View style={styles.iconWrap}>
               <Ionicons name={notification.icon} size={20} color={lightTheme.accent} />
-              {notification.unread && <View style={styles.unreadDot} />}
+              {notification.unread && !isRead(notification.id) && (
+                <View style={styles.unreadDot} />
+              )}
             </View>
             <View style={styles.textWrap}>
               <Text style={styles.title}>{notification.title}</Text>

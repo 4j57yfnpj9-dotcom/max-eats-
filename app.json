@@ -25,7 +25,13 @@
     "plugins": [
       "expo-font",
       "expo-splash-screen",
-      "expo-maps"
+      "expo-maps",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to access your location"
+        }
+      ]
     ],
     "experiments": {
       "baseUrl": "/max-eats-"

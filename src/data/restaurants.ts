@@ -13,6 +13,13 @@ export type Restaurant = {
   latitude: number;
   longitude: number;
   image?: ImageSourcePropType;
+  // Only populated for live Yelp results — a plain search doesn't return
+  // these, so they're filled in lazily by getRestaurantDetails() once a
+  // restaurant is opened. Sample/mock data never has them.
+  address?: string;
+  phone?: string;
+  price?: string;
+  yelpUrl?: string;
 };
 
 // Real Cincinnati, OH coordinates (matches the default location in

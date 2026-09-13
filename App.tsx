@@ -13,6 +13,8 @@ import {
 import { TabNavigator } from './src/navigation/TabNavigator';
 import { FavoritesProvider } from './src/context/FavoritesContext';
 import { GeneratedRecipesProvider } from './src/context/GeneratedRecipesContext';
+import { NotificationsProvider } from './src/context/NotificationsContext';
+import { UserProfileProvider } from './src/context/UserProfileContext';
 
 // Keep the native splash screen visible while fonts are still downloading.
 SplashScreen.preventAutoHideAsync();
@@ -45,10 +47,14 @@ export default function App() {
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <FavoritesProvider>
         <GeneratedRecipesProvider>
-          <NavigationContainer>
-            <TabNavigator />
-          </NavigationContainer>
-          <StatusBar style="dark" />
+          <NotificationsProvider>
+            <UserProfileProvider>
+              <NavigationContainer>
+                <TabNavigator />
+              </NavigationContainer>
+              <StatusBar style="dark" />
+            </UserProfileProvider>
+          </NotificationsProvider>
         </GeneratedRecipesProvider>
       </FavoritesProvider>
     </SafeAreaProvider>

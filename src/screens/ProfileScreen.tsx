@@ -1,27 +1,42 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ProfileStackParamList } from '../navigation/ProfileStackNavigator';
 import { lightTheme, fontFamily, spacing } from '../theme';
-import { currentUser } from '../data/user';
 import { useFavorites } from '../context/FavoritesContext';
+import { useGeneratedRecipes } from '../context/GeneratedRecipesContext';
+import { useUserProfile } from '../context/UserProfileContext';
 import { Card } from '../components/Card';
 
-type SettingsRow = {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-};
-
-// No destinations built yet for these — same honest no-op pattern as the
-// Home screen's menu/notifications icons, until each one gets its own screen.
-const settingsRows: SettingsRow[] = [
-  { icon: 'restaurant-outline', label: 'Dietary Preferences' },
-  { icon: 'notifications-outline', label: 'Notifications' },
-  { icon: 'person-outline', label: 'Account Settings' },
-  { icon: 'help-circle-outline', label: 'Help & Support' },
-];
+type ProfileScreenNavigationProp = NativeStackNavigationProp<ProfileStackParamList, 'ProfileMain'>;
 
 export function ProfileScreen() {
-  const { favoriteRecipeIds, favoriteRestaurantIds } = useFavorites();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const { favoriteRecipeIds, favoriteRestaurantIds, clearFavorites } = useFavorites();
+  const { clearGeneratedRecipes } = useGeneratedRecipes();
+  const { name, email, dietaryPreferences, notificationsEnabled, setNotificationsEnabled, resetProfile } =
+    useUserProfile();
+
+  function handleReset() {
+    Alert.alert(
+      'Reset App Data',
+      'This clears your saved recipes, saved restaurants, and profile settings on this device. This can\'t be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: () => {
+            clearFavorites();
+            clearGeneratedRecipes();
+            resetProfile();
+          },
+        },
+      ]
+    );
+  }
 
   return (
     <SafeAreaView style={styles.screen} edges={['top']}>
@@ -32,8 +47,8 @@ export function ProfileScreen() {
           <View style={styles.avatar}>
             <Ionicons name="person" size={32} color={lightTheme.accent} />
           </View>
-          <Text style={styles.name}>{currentUser.name}</Text>
-          <Text style={styles.email}>{currentUser.email}</Text>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
 
         <View style={styles.statsRow}>
@@ -49,23 +64,60 @@ export function ProfileScreen() {
 
         <Text style={styles.sectionTitle}>Settings</Text>
         <Card theme={lightTheme} style={styles.settingsCard}>
-          {settingsRows.map((row, index) => (
-            <Pressable
-              key={row.label}
-              style={[styles.settingsRow, index > 0 && styles.settingsRowBorder]}
-              onPress={() => {}}
-            >
-              <View style={styles.settingsRowLeft}>
-                <Ionicons name={row.icon} size={20} color={lightTheme.text} />
-                <Text style={styles.settingsLabel}>{row.label}</Text>
-              </View>
+          <Pressable
+            style={styles.settingsRow}
+            onPress={() => navigation.navigate('DietaryPreferences')}
+          >
+            <View style={styles.settingsRowLeft}>
+              <Ionicons name="restaurant-outline" size={20} color={lightTheme.text} />
+              <Text style={styles.settingsLabel}>Dietary Preferences</Text>
+            </View>
+            <View style={styles.settingsRowRight}>
+              {dietaryPreferences.length > 0 && (
+                <Text style={styles.settingsValue}>{dietaryPreferences.length} selected</Text>
+              )}
               <Ionicons name="chevron-forward" size={18} color={lightTheme.textMuted} />
-            </Pressable>
-          ))}
+            </View>
+          </Pressable>
+
+          <View style={[styles.settingsRow, styles.settingsRowBorder]}>
+            <View style={styles.settingsRowLeft}>
+              <Ionicons name="notifications-outline" size={20} color={lightTheme.text} />
+              <Text style={styles.settingsLabel}>Notifications</Text>
+            </View>
+            <Switch
+              value={notificationsEnabled}
+              onValueChange={setNotificationsEnabled}
+              trackColor={{ false: lightTheme.imagePlaceholder, true: lightTheme.accent }}
+              thumbColor={lightTheme.card}
+            />
+          </View>
+
+          <Pressable
+            style={[styles.settingsRow, styles.settingsRowBorder]}
+            onPress={() => navigation.navigate('AccountSettings')}
+          >
+            <View style={styles.settingsRowLeft}>
+              <Ionicons name="person-outline" size={20} color={lightTheme.text} />
+              <Text style={styles.settingsLabel}>Account Settings</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={lightTheme.textMuted} />
+          </Pressable>
+
+          <Pressable
+            style={[styles.settingsRow, styles.settingsRowBorder]}
+            onPress={() => navigation.navigate('HelpSupport')}
+          >
+            <View style={styles.settingsRowLeft}>
+              <Ionicons name="help-circle-outline" size={20} color={lightTheme.text} />
+              <Text style={styles.settingsLabel}>Help & Support</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={lightTheme.textMuted} />
+          </Pressable>
         </Card>
 
-        <Pressable style={styles.signOutButton} onPress={() => {}}>
-          <Text style={styles.signOutLabel}>Sign Out</Text>
+        <Pressable style={styles.signOutButton} onPress={handleReset}>
+          <Text style={styles.signOutLabel}>Reset App Data</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>
@@ -155,10 +207,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.md,
   },
+  settingsRowRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
   settingsLabel: {
     fontFamily: fontFamily.body,
     fontSize: 15,
     color: lightTheme.text,
+  },
+  settingsValue: {
+    fontFamily: fontFamily.body,
+    fontSize: 13,
+    color: lightTheme.textMuted,
   },
   signOutButton: {
     alignItems: 'center',

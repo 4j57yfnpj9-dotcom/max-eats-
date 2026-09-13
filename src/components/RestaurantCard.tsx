@@ -9,13 +9,15 @@ import { useFavorites } from '../context/FavoritesContext';
 type RestaurantCardProps = {
   restaurant: Restaurant;
   theme: Theme;
+  onPress?: () => void;
 };
 
-export function RestaurantCard({ restaurant, theme }: RestaurantCardProps) {
+export function RestaurantCard({ restaurant, theme, onPress }: RestaurantCardProps) {
   const { isRestaurantFavorite, toggleRestaurantFavorite } = useFavorites();
   const isFavorite = isRestaurantFavorite(restaurant.id);
 
   return (
+    <Pressable onPress={onPress} disabled={!onPress}>
     <Card theme={theme} style={styles.card}>
       <View style={styles.thumbnail}>
         {restaurant.image ? (
@@ -30,7 +32,7 @@ export function RestaurantCard({ restaurant, theme }: RestaurantCardProps) {
           <Text style={[styles.name, { color: theme.text }]} numberOfLines={1}>
             {restaurant.name}
           </Text>
-          <Pressable onPress={() => toggleRestaurantFavorite(restaurant.id)} hitSlop={8}>
+          <Pressable onPress={() => toggleRestaurantFavorite(restaurant)} hitSlop={8}>
             <Ionicons
               name={isFavorite ? 'heart' : 'heart-outline'}
               size={18}
@@ -59,6 +61,7 @@ export function RestaurantCard({ restaurant, theme }: RestaurantCardProps) {
         </View>
       </View>
     </Card>
+    </Pressable>
   );
 }
 
